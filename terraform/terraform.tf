@@ -8,7 +8,7 @@ terraform {
   backend "s3" {
     bucket = "webpro21"
     key    = "terraform.tfstate"
-    region = var.region
+    region = "us-east-1"
   }
 }
 
