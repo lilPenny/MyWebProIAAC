@@ -48,9 +48,6 @@ jobs:
               id: validate
               run: terraform validate
 
-            - name: Debug SSH Key
-              run: echo "${{ secrets.SSH_PUBLIC_KEY }}"
-
             - name: Terraform Plan
               id: plan
               if: ${{ github.event.inputs.action == 'plan' || github.event.inputs.action == 'apply' }}
