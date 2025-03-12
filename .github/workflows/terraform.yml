@@ -47,7 +47,7 @@ jobs:
 
             - name: Terraform Plan
               id: plan
-              run: terraform plan -var="my_ip=$MY_IP" -out=tfplan -no-color
+              run: terraform plan -out=tfplan -no-color
               continue-on-error: true
 
             - name: Terraform plan status
