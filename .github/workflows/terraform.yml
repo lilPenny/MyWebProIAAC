@@ -33,10 +33,6 @@ jobs:
             - name: Debug Terraform formatting changes
               run: terraform fmt -diff
 
-            - name: Terraform format 
-              id: fmt1
-              run: terraform fmt
-
             - name: Terraform format check
               id: fmt
               run: terraform fmt -check
