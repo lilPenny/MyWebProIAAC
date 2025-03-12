@@ -20,3 +20,8 @@ variable "amiId" {
     "us-east-2" = ""
   }
 }
+
+variable "ssh_public_key" {
+  type      = string
+  sensitive = true
+}
