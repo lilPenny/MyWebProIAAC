@@ -22,5 +22,5 @@ variable "amiId" {
 }
 
 variable "ssh_Public_Key" {
-  type      = string
+  type = string
 }
