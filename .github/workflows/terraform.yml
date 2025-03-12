@@ -5,8 +5,8 @@ on:
 env:
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
-    MY_IP: ${{ secrets.MY_IP }}
+    TF_VAR_SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
+    TF_VAR_MY_IP: ${{ secrets.MY_IP }}
     BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
 
 jobs:
@@ -47,7 +47,7 @@ jobs:
 
             - name: Terraform Plan
               id: plan
-              run: terraform plan -var="my_ip=$MY_IP" -out=tfplan -no-color -input=false
+              run: terraform plan -var="my_ip=$MY_IP" -out=tfplan -no-color
               continue-on-error: true
 
             - name: Terraform plan status
