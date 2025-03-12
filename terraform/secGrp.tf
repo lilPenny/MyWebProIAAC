@@ -9,7 +9,6 @@ resource "aws_security_group" "web-sg" {
 
 data "aws_security_group" "exising-sg" {
   name = "ansible-sg"
-  
 }
 
 resource "aws_vpc_security_group_ingress_rule" "sshFromMyIp" {
