@@ -21,7 +21,7 @@ variable "amiId" {
   }
 }
 
-variable "ssh_public_key" {
+variable "ssh_Public_Key" {
   type      = string
   sensitive = true
 }
