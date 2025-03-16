@@ -27,7 +27,7 @@ jobs:
                     --targets Key=tag:Name,Values=webInstance \
                     --parameters '{
                       "SourceType": ["GitHub"],
-                      "SourceInfo": ["{\"owner\":\"${{ github.repository_owner }}\", \"repository\":\"${{ github.event.repository.name }}\", \"getOptions\":\"branch:master\"}"],
+                      "SourceInfo": ["{\"owner\":\"${{ github.repository_owner }}\", \"repository\":\"${{ github.event.repository.name }}\", \"path\":\"ansible\", \"getOptions\":\"branch:master\"}"],
                       "InstallDependencies": ["True"],
                       "PlaybookFile": ["provisioning.yaml"],
                       "Check": ["False"],
