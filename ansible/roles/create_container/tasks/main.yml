@@ -1,0 +1,7 @@
+---
+- name: Create a container
+  community.docker.docker_container:
+    name: myWeb
+    image: asdmx/mywebrepo:latest
+    ports:
+      - 80:80
