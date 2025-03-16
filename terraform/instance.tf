@@ -5,6 +5,7 @@ resource "aws_instance" "web" {
   key_name               = "instanceKey"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
   availability_zone      = var.zone
+  user_data              = "${file("awscli.sh")}"
   tags = {
     Name = "webInstance"
   }

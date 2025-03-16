@@ -1,0 +1,8 @@
+---
+- name: Provision Docker and perform post-install tasks
+  hosts: all
+  become: yes  # Run tasks with sudo/root privileges
+  roles:
+    - role: post_install
+    - role: docker_install
+    - role: create_container

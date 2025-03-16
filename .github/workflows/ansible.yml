@@ -1,0 +1,37 @@
+name: Ansible SSM Association for playbook
+
+on:
+    workflow_dispatch
+
+env:
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    AWS_DEFAULT_REGION: us-east-1
+
+jobs:
+    create_ssm_association:
+        name: "Create SSM Association"
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+                working-directory: ./ansible
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Create SSM association via CLI
+              run: |
+                aws ssm create-association \
+                    --name "AWS-ApplyAnsiblePlaybooks" \
+                    --targets Key=tag:Name,Values=webInstance \
+                    --parameters '{
+                      "SourceType": ["GitHub"],
+                      "SourceInfo": ["{\"owner\":\"${{ github.repository_owner }}\", \"repository\":\"${{ github.event.repository.name }}\", \"getOptions\":\"branch:main\"}"],
+                      "InstallDependencies": ["True"],
+                      "PlaybookFile": ["provisioning.yaml"],
+                      "Check": ["False"],
+                      "Verbose": ["-v"],
+                      "TimeoutSeconds": ["3600"]
+                    }' \
+                    --association-name "Ansible-Playbook-Association"
