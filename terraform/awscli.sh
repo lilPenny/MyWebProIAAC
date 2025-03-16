@@ -1,3 +1,4 @@
 #!/bin/bash
-sudo yum update -y
-sudo yum install -y awscli
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install -y ansible

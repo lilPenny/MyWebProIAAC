@@ -28,7 +28,7 @@ jobs:
                     --parameters '{
                       "SourceType": ["GitHub"],
                       "SourceInfo": ["{\"owner\":\"${{ github.repository_owner }}\", \"repository\":\"${{ github.event.repository.name }}\", \"path\":\"ansible\", \"getOptions\":\"branch:master\"}"],
-                      "InstallDependencies": ["True"],
+                      "InstallDependencies": ["False"],
                       "PlaybookFile": ["provisioning.yml"],
                       "Check": ["False"],
                       "Verbose": ["-v"],
