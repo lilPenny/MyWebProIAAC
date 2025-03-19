@@ -1,19 +1,37 @@
 ---
 - name: Ensure the destination directory exists
   ansible.builtin.file:
-    path: "/tmp/docker-compose"
+    path: /tmp/docker-compose
     state: directory
     mode: '0755'
 
-- name: Download docker-compose.yml from GitHub repository
-  ansible.builtin.get_url:
-    url: "https://github.com/lilPenny/MyWebPro/tree/master/traefik"
-    dest: "/tmp/docker-compose"
+- name: Clone a github repository
+  git:
+    repo: https://github.com/lilPenny/MyWebPro.git
+    dest: /tmp/docker-compose
+    clone: yes
 
-- name: Run Docker compose with env
-  environment:
-    EMAIL: "{{ lookup('aws_ssm', '/EMAIL', region='us-east-1') }}"
-    CF_DNS_API_TOKEN: "{{ lookup('aws_ssm', '/CF_DNS_API_TOKEN', region='us-east-1') }}"
+- name: Create a backup directory
+  ansible.builtin.file:
+    path: /WebServer
+    state: directory
+    mode: '0755'
+
+- name: Copy the 'traefik' folder to final dest
+  command: cp -r /tmp/docker-compose/traefik/ /WebServer
+
+- name: Remove tmp dur
+  command: rm -rf /tmp/docker-compose
+
+- name: Create .env file for Docker Compose
+  ansible.builtin.copy:
+    dest: /WebServer/traefik/.env
+    content: |
+      EMAIL = '{{ lookup('aws_ssm', '/EMAIL', region='us-east-1') }}'
+      CF_DNS_API_TOKEN = '{{ lookup('aws_ssm', '/CF_DNS_API_TOKEN', region='us-east-1') }}'
+    mode: '0644'
+
+- name: Run Docker compose
   ansible.builtin.command:
-    cmd: docker-compose up -d
-    chdir: "/tmp/docker-compose/traefik"
+    chdir: /WebServer/traefik/
+    cmd: docker compose up -d
