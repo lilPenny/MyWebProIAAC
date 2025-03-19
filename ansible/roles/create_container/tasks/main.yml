@@ -1,7 +1,19 @@
 ---
-- name: Create a container
-  community.docker.docker_container:
-    name: myWeb
-    image: asdmx/mywebrepo:latest
-    ports:
-      - 80:80
+- name: Ensure the destination directory exists
+  ansible.builtin.file:
+    path: "/tmp/docker-compose"
+    state: directory
+    mode: '0755'
+
+- name: Download docker-compose.yml from GitHub repository
+  ansible.builtin.get_url:
+    url: "https://github.com/lilPenny/MyWebPro/tree/master/traefik"
+    dest: "/tmp/docker-compose"
+
+- name: Run Docker compose with env
+  environment:
+    EMAIL: "{{ lookup('aws_ssm', '/EMAIL', region='us-east-1') }}"
+    CF_DNS_API_TOKEN: "{{ lookup('aws_ssm', '/CF_DNS_API_TOKEN', region='us-east-1') }}"
+  ansible.builtin.command:
+    cmd: docker-compose up -d
+    chdir: "/tmp/docker-compose/traefik"
