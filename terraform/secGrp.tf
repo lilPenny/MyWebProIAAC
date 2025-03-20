@@ -15,35 +15,17 @@ resource "aws_vpc_security_group_ingress_rule" "sshFromMyIp" {
   to_port           = 22
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_http_myip" {
+resource "aws_vpc_security_group_ingress_rule" "allow_http" {
   security_group_id = aws_security_group.web-sg.id
-  cidr_ipv4         = var.myIp
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_http_cloudflare" {
-  for_each          = toset(var.cloudflare_ips)
+resource "aws_vpc_security_group_ingress_rule" "allow_https" {
   security_group_id = aws_security_group.web-sg.id
-  cidr_ipv4         = each.value
-  from_port         = 80
-  ip_protocol       = "tcp"
-  to_port           = 80
-}
-
-resource "aws_vpc_security_group_ingress_rule" "allow_https_myip" {
-  security_group_id = aws_security_group.web-sg.id
-  cidr_ipv4         = var.myIp
-  from_port         = 443
-  ip_protocol       = "tcp"
-  to_port           = 443
-}
-
-resource "aws_vpc_security_group_ingress_rule" "allow_https_cloudflare" {
-  for_each          = toset(var.cloudflare_ips)
-  security_group_id = aws_security_group.web-sg.id
-  cidr_ipv4         = each.value
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 443
   ip_protocol       = "tcp"
   to_port           = 443
