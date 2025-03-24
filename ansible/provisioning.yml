@@ -6,3 +6,4 @@
     - role: post_install
     - role: docker_install
     - role: create_container
+    - role: cron_job
