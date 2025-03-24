@@ -12,10 +12,6 @@ jobs:
     create_ssm_association:
         name: "Create SSM Association"
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                shell: bash
-                working-directory: ./ansible
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
