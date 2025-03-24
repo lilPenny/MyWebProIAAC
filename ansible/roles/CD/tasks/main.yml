@@ -1,0 +1,14 @@
+- name: Run Docker pull images
+  ansible.builtin.command:
+    chdir: /WebServer/traefik/
+    cmd: docker compose pull
+
+- name: Run Docker compose down
+  ansible.builtin.command:
+    chdir: /WebServer/traefik/
+    cmd: docker compose down
+
+- name: Run Docker compose
+  ansible.builtin.command:
+    chdir: /WebServer/traefik/
+    cmd: docker compose up -d
