@@ -1,0 +1,6 @@
+- name: Creates an entry like "@reboot /some/job.sh with a delay"
+  ansible.builtin.cron:
+    name: "a job for reboot"
+    special_time: reboot
+    job: "sleep 6 && /WebServer/cron/dnsupdate.sh"
+    user: ubuntu

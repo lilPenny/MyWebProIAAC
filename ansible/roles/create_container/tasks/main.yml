@@ -27,10 +27,10 @@
   ansible.builtin.copy:
     dest: /WebServer/traefik/.env
     content: |
-      EMAIL = '{{ lookup('aws_ssm', '/EMAIL', region='us-east-1') }}'
-      CF_DNS_API_TOKEN = '{{ lookup('aws_ssm', '/CF_DNS_API_TOKEN', region='us-east-1') }}'
-      ZONE_ID = '{{ lookup('aws_ssm', '/ZONE_ID', region='us-east-1') }}'
-      DNS_RECORD_ID = '{{ lookup('aws_ssm', '/DNS_RECORD_ID', region='us-east-1') }}'
+      EMAIL="{{ lookup('aws_ssm', '/EMAIL', region='us-east-1') }}"
+      CF_DNS_API_TOKEN="{{ lookup('aws_ssm', '/CF_DNS_API_TOKEN', region='us-east-1') }}"
+      ZONE_ID="{{ lookup('aws_ssm', '/ZONE_ID', region='us-east-1') }}"
+      DNS_RECORD_ID="{{ lookup('aws_ssm', '/DNS_RECORD_ID', region='us-east-1') }}"
     mode: '0644'
 
 - name: Run Docker compose
