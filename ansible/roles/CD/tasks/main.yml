@@ -11,8 +11,8 @@
 
     - name: Run Docker compose down
       ansible.builtin.command:
-      chdir: /WebServer/traefik/
-      cmd: docker compose down
+        chdir: /WebServer/traefik/
+        cmd: docker compose down
 
     - name: Run Docker compose
       ansible.builtin.command:
